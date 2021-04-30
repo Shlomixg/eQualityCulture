@@ -22,7 +22,7 @@ let theatersLayer = L.layerGroup().addTo(map);
 let cinemasLayer = L.layerGroup().addTo(map);
 let musicLayer = L.layerGroup().addTo(map);
 
-let theaters = {"type": "FeatureCollection", "features": []},
+let theaters = {"type": "FeatureCollection", "features": []}, 
     cinemas = {"type": "FeatureCollection", "features": []}, 
     musics = {"type": "FeatureCollection", "features": []};
 
