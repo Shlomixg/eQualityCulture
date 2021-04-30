@@ -1,3 +1,19 @@
 html {
     direction: rtl;
 }
+.modal{
+    z-index: 1000;
+}
+.website{
+    text-align: left;
+}
+.accesibilty-mail{
+    text-align: left;
+}
+.accesibilty-phone{
+    text-align: left;
+}
+.phone{
+    direction: ltr;
+    text-align: right;
+}
