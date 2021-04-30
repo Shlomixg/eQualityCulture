@@ -28,7 +28,6 @@ let theaters = {"type": "FeatureCollection", "features": []},
 
 // Adding places to each layer according to it's category
 places.features.forEach(place => {
-    console.log(place);
     if (place.properties.Category.includes('Theater')) theaters.features.push(place);
     if (place.properties.Category.includes('Cinema')) cinemas.features.push(place);
     if (place.properties.Category.includes('Music')) musics.features.push(place);
@@ -49,7 +48,18 @@ L.geoJson(theaters, {
         });
     },
     onEachFeature: function (feature, layer) {
-        layer.bindPopup(`${feature.properties.Name}`);
+        layer.on({
+            click: function (insertData) {
+                    $(".modal-card-title").text(feature.properties.Name);
+                    $(".description").text(feature.properties.Category);
+                    $(".address").text(feature.properties.Address);
+                    $(".phone").text(feature.properties.Phone);
+                    $(".website").text(feature.properties.Website);
+                    $(".accesibilty-mail").text(feature.properties.Website);
+                    $(".accesibilty-phone").text(feature.properties.Website);
+                    $(".modal").toggleClass("is-active");
+            }
+        });
         theatersLayer.addLayer(layer);
     }
 });
@@ -68,7 +78,18 @@ L.geoJson(cinemas, {
         });
     },
     onEachFeature: function (feature, layer) {
-        layer.bindPopup(`${feature.properties.Name}`);
+        layer.on({
+            click: function (insertData) {
+                    $(".modal-card-title").text(feature.properties.Name);
+                    $(".description").text(feature.properties.Category);
+                    $(".address").text(feature.properties.Address);
+                    $(".phone").text(feature.properties.Phone);
+                    $(".website").text(feature.properties.Website);
+                    $(".accesibilty-mail").text(feature.properties.Website);
+                    $(".accesibilty-phone").text(feature.properties.Website);
+                    $(".modal").toggleClass("is-active");
+            }
+        });
         cinemasLayer.addLayer(layer);
     }
 });
@@ -87,7 +108,18 @@ L.geoJson(musics, {
         });
     },
     onEachFeature: function (feature, layer) {
-        layer.bindPopup(`${feature.properties.Name}`);
+        layer.on({
+            click: function (insertData) {
+                    $(".modal-card-title").text(feature.properties.Name);
+                    $(".description").text(feature.properties.Category);
+                    $(".address").text(feature.properties.Address);
+                    $(".phone").text(feature.properties.Phone);
+                    $(".website").text(feature.properties.Website);
+                    $(".accesibilty-mail").text(feature.properties.Website);
+                    $(".accesibilty-phone").text(feature.properties.Website);
+                    $(".modal").toggleClass("is-active");
+            }
+        });
         musicLayer.addLayer(layer);
     }
 });
@@ -120,3 +152,9 @@ $(document).ready(function() {
 
     });
 });
+
+$(".modal-close-button").click(function (){
+    console.log("click");
+    $(".modal").toggleClass("is-active");
+    return false;
+})
