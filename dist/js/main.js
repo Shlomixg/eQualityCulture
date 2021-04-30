@@ -22,13 +22,12 @@ let theatersLayer = L.layerGroup().addTo(map);
 let cinemasLayer = L.layerGroup().addTo(map);
 let musicLayer = L.layerGroup().addTo(map);
 
-let theaters = {"type": "FeatureCollection", "features": []},
+let theaters = {"type": "FeatureCollection", "features": []}, 
     cinemas = {"type": "FeatureCollection", "features": []}, 
     musics = {"type": "FeatureCollection", "features": []};
 
 // Adding places to each layer according to it's category
 places.features.forEach(place => {
-    console.log(place);
     if (place.properties.Category.includes('Theater')) theaters.features.push(place);
     if (place.properties.Category.includes('Cinema')) cinemas.features.push(place);
     if (place.properties.Category.includes('Music')) musics.features.push(place);
