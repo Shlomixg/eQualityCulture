@@ -1,41 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="he">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- lib scripts -->
-    <script src="js/lib/jquery-3.6.0.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- lib scripts -->
+  <script src="js/lib/jquery-3.6.0.min.js"></script>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-    <link rel="icon" href="img/favicon.ico" type="image/ico">
-    <meta name="theme-color" content="#25D366">
-    <title>eQualityCulture</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+  <link rel=" stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma-rtl.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="icon" href="img/icon.ico" type="image/ico">
+  <meta name="theme-color" content="#25D366">
+  <title>eQualityCulture</title>  
 </head>
 
 <body>
-    <header>
-        <h1>
-            תרבות שווה
-        </h1>
-    </header>
+  <!-- Start Nav -->
+  <nav class="navbar is-light">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+          <img src="./img/logo.png" alt="Logo"> 
+        </a>
+        <span class="navbar-burger burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item is-size-5 has-text-weight-semibold">
+            בית
+          </a>
+          <a class="navbar-item is-size-5 has-text-weight-semibold">
+            רשימת מקומות
+          </a>
+          <a class="navbar-item is-size-5 has-text-weight-semibold">
+            אודות
+          </a>
+          <a class="navbar-item is-size-5 has-text-weight-semibold">
+            צרו קשר
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- End Nav -->
 
-    <main>
-        <div id="mapid"></div>
-    </main>
+  <!-- Main -->
+  <section class="hero is-link is-fullheight-with-navbar">
+    <div class="hero-body" id="mapid">
+      
+    </div>
+  </section>
 
-    <footer id="toggler">
-        כל הזכויות שמורות
-    </footer>
-    <!-- lib scripts -->
-    <script src="js/lib/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    <!-- user scripts -->
-    <script src="js/places.js"></script>
-    <script src="js/main.js"></script>
+  <!-- lib scripts -->
+  <script src="js/lib/jquery-3.6.0.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <!-- user scripts -->
+  <script src="../data/places.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
