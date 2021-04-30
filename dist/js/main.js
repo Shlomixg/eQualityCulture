@@ -140,6 +140,11 @@ let layerControl = {
 // Add the control component, a layer list with checkboxes for operational layers and radio buttons for basemaps
 L.control.layers(basemapControl, layerControl).addTo(map)
 
+// Add control to locate user location (Plugin)
+L.control.locate({
+    flyTo: true,
+    icon: 'fas fa-map-marker-alt',
+}).addTo(map);
 
 // Control on navbar
 $(document).ready(function() {
@@ -154,7 +159,5 @@ $(document).ready(function() {
 });
 
 $(".modal-close-button").click(function (){
-    console.log("click");
     $(".modal").toggleClass("is-active");
-    return false;
 })
