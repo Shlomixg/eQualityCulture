@@ -57,60 +57,19 @@
   <!-- Main -->
   <main class="columns">
     <div class="sidebar-list column is-2">
-      <nav class="panel">
+      <nav class="panel" id="features-panel">
         <p class="panel-heading">
           מקומות
         </p>
         <div class="panel-block">
           <p class="control has-icons-left">
-            <input class="input" type="text" placeholder="חיפוש">
+            <input class="search input" type="text" placeholder="חיפוש">
             <span class="icon is-left">
               <i class="fas fa-search" aria-hidden="true"></i>
             </span>
           </p>
         </div>
-        <p class="panel-tabs">
-          <a class="is-active">הכל</a>
-          <a>תיאטראות</a>
-          <a>אולמות קולנוע</a>
-          <a>אולמות מוזיקה</a>
-        </p>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          bulma
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          marksheet
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          minireset.css
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-book" aria-hidden="true"></i>
-          </span>
-          jgthms.github.io
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-code-branch" aria-hidden="true"></i>
-          </span>
-          daniellowtw/infboard
-        </a>
-        <a class="panel-block">
-          <span class="panel-icon">
-            <i class="fas fa-code-branch" aria-hidden="true"></i>
-          </span>
-          mojs
-        </a>
+        <ul class="list" id="feature-list"></ul>
       </nav>
     </div>
     <section class="hero is-link is-fullheight-with-navbar column">
@@ -158,7 +117,8 @@
   <!-- lib scripts -->
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.73.0/src/L.Control.Locate.min.js"></script>
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+
   <!-- user scripts -->
   <script src="../data/places.js"></script>
   <script src="js/main.js"></script>

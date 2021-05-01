@@ -1,5 +1,7 @@
+let map, featuresArray = [];
+
 // Create a map
-let map = L.map('mapid', {
+map = L.map('mapid', {
     center: [31.5, 34.75],
     zoom: 8,
 });
@@ -18,9 +20,9 @@ let satellite = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/
 });
 
 // Creating empty layer groups
-let theatersLayer = L.layerGroup().addTo(map);
-let cinemasLayer = L.layerGroup().addTo(map);
-let musicLayer = L.layerGroup().addTo(map);
+let theatersLayer = L.layerGroup().addTo(map),
+    cinemasLayer = L.layerGroup().addTo(map),
+    musicLayer = L.layerGroup().addTo(map);
 
 let theaters = {"type": "FeatureCollection", "features": []}, 
     cinemas = {"type": "FeatureCollection", "features": []}, 
@@ -43,24 +45,32 @@ L.geoJson(theaters, {
             iconAnchor: [20, 30],
             popupAnchor: [0, -26]
           }),
-          title: feature.properties.Name,
+          title: feature.properties.name,
           riseOnHover: true
         });
     },
     onEachFeature: function (feature, layer) {
         layer.on({
-            click: function (insertData) {
+            click: function () {
                 $(".modal-card-title").text(feature.properties.name);
-                $(".category").text("קטגוריה: "+feature.properties.category);
-                $(".address").text("כתובת: "+feature.properties.address);
-                $(".phone").text("טלפון: "+feature.properties.phone);
+                $(".category").text(`קטגוריה: ${feature.properties.category}`);
+                $(".address").text(`כתובת: ${feature.properties.address}`);
+                $(".phone").text(`טלפון: ${feature.properties.phone}`);
                 document.getElementsByClassName(".website").href = feature.properties.website;
-                $(".accesibilty-mail").text("אימייל נציג נגישות: "+feature.properties.accessibility_officer_mail);
-                $(".accesibilty-phone").text("טלפון נציג נגישות: "+feature.properties.accessibility_officer_phone);
-                $(".info").text("מידע אודות הנגישות באתר: "+feature.properties.accessibility_description);
+                $(".accesibilty-mail").text("אימייל נציג נגישות: " + feature.properties.accessibility_officer_mail);
+                $(".accesibilty-phone").text("טלפון נציג נגישות: " + feature.properties.accessibility_officer_phone);
+                $(".info").text("מידע אודות הנגישות באתר: " + feature.properties.accessibility_description);
                 $(".modal").toggleClass("is-active");
             }
         });
+        $("#feature-list").append(`<li class="feature-row" id="${L.stamp(layer)}" lat="${layer.getLatLng().lat}" lng="${layer.getLatLng().lng}">
+                                    <span><img src="img/theater-marker.png" width="30" height="30"></span>
+                                    <span class="item-name">${layer.feature.properties.name}</span>
+                                    <span class="item-address">${layer.feature.properties.address}</span>
+                                    <span class="icon">
+                                        <i class="fa fa-chevron-left"></i>
+                                    </span>
+                                    </li>`);
         theatersLayer.addLayer(layer);
     }
 });
@@ -74,24 +84,32 @@ L.geoJson(cinemas, {
             iconAnchor: [20, 30],
             popupAnchor: [0, -26]
           }),
-          title: feature.properties.Name,
+          title: feature.properties.name,
           riseOnHover: true
         });
     },
     onEachFeature: function (feature, layer) {
         layer.on({
-            click: function (insertData) {
+            click: function () {
                 $(".modal-card-title").text(feature.properties.name);
-                $(".category").text("קטגוריה: "+feature.properties.category);
-                $(".address").text("כתובת: "+feature.properties.address);
-                $(".phone").text("טלפון: "+feature.properties.phone);
+                $(".category").text(`קטגוריה: ${feature.properties.category}`);
+                $(".address").text(`כתובת: ${feature.properties.address}`);
+                $(".phone").text(`טלפון: ${feature.properties.phone}`);
                 document.getElementsByClassName(".website").href = feature.properties.website;
-                $(".accesibilty-mail").text("אימייל נציג נגישות: "+feature.properties.accessibility_officer_mail);
-                $(".accesibilty-phone").text("טלפון נציג נגישות: "+feature.properties.accessibility_officer_phone);
-                $(".info").text("מידע אודות הנגישות באתר: "+feature.properties.accessibility_description);
+                $(".accesibilty-mail").text("אימייל נציג נגישות: " + feature.properties.accessibility_officer_mail);
+                $(".accesibilty-phone").text("טלפון נציג נגישות: " + feature.properties.accessibility_officer_phone);
+                $(".info").text("מידע אודות הנגישות באתר: " + feature.properties.accessibility_description);
                 $(".modal").toggleClass("is-active");
             }
         });
+        $("#feature-list").append(`<li class="feature-row" id="${L.stamp(layer)}" lat="${layer.getLatLng().lat}" lng="${layer.getLatLng().lng}">
+                                    <span><img src="img/cinema-marker.png" width="30" height="30"></span>
+                                    <span class="item-name">${layer.feature.properties.name}</span>
+                                    <span class="item-address">${layer.feature.properties.address}</span>
+                                    <span class="icon">
+                                        <i class="fa fa-chevron-left"></i>
+                                    </span>
+                                    </li>`);
         cinemasLayer.addLayer(layer);
     }
 });
@@ -105,24 +123,32 @@ L.geoJson(musics, {
             iconAnchor: [20, 30],
             popupAnchor: [0, -26]
           }),
-          title: feature.properties.Name,
+          title: feature.properties.name,
           riseOnHover: true
         });
     },
     onEachFeature: function (feature, layer) {
         layer.on({
-            click: function (insertData) {
+            click: function () {
                 $(".modal-card-title").text(feature.properties.name);
-                $(".category").text("קטגוריה: "+feature.properties.category);
-                $(".address").text("כתובת: "+feature.properties.address);
-                $(".phone").text("טלפון: "+feature.properties.phone);
+                $(".category").text(`קטגוריה: ${feature.properties.category}`);
+                $(".address").text(`כתובת: ${feature.properties.address}`);
+                $(".phone").text(`טלפון: ${feature.properties.phone}`);
                 document.getElementsByClassName(".website").href = feature.properties.website;
-                $(".accesibilty-mail").text("אימייל נציג נגישות: "+feature.properties.accessibility_officer_mail);
-                $(".accesibilty-phone").text("טלפון נציג נגישות: "+feature.properties.accessibility_officer_phone);
-                $(".info").text("מידע אודות הנגישות באתר: "+feature.properties.accessibility_description);
+                $(".accesibilty-mail").text("אימייל נציג נגישות: " + feature.properties.accessibility_officer_mail);
+                $(".accesibilty-phone").text("טלפון נציג נגישות: " + feature.properties.accessibility_officer_phone);
+                $(".info").text("מידע אודות הנגישות באתר: " + feature.properties.accessibility_description);
                 $(".modal").toggleClass("is-active");
             }
         });
+        $("#feature-list").append(`<li class="feature-row" id="${L.stamp(layer)}" lat="${layer.getLatLng().lat}" lng="${layer.getLatLng().lng}">
+                                    <span><img src="img/music-marker.png" width="30" height="30"></span>
+                                    <span class="item-name">${layer.feature.properties.name}</span>
+                                    <span class="item-address">${layer.feature.properties.address}</span>
+                                    <span class="icon">
+                                        <i class="fa fa-chevron-left"></i>
+                                    </span>
+                                    </li>`);
         musicLayer.addLayer(layer);
     }
 });
@@ -170,3 +196,11 @@ $(".modal-close-button").click(function (){
 $(".sidebar-list-btn").click(function (){
     $(".sidebar-list").animate({width: 'toggle'})
 });
+
+
+let options = {
+    valueNames: [ 'item-name', 'item-address' ],
+};
+
+let featuresList = new List('features-panel', options);
+featuresList.sort("item-name", {order:"asc"});

@@ -15,13 +15,28 @@ html {
     display: none;
     border-left: black 1px solid;
 }
+
+#features-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#feature-list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    height: 0;
+}
+
 .modal {
     z-index: 1000;
 }
+
 .phone {
     direction: ltr;
     text-align: right;
 }
+
 .hero.is-link {
     color: #0C97D8 !important;
 }
