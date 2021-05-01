@@ -28,9 +28,9 @@ let theaters = {"type": "FeatureCollection", "features": []},
 
 // Adding places to each layer according to it's category
 places.features.forEach(place => {
-    if (place.properties.Category.includes('Theater')) theaters.features.push(place);
-    if (place.properties.Category.includes('Cinema')) cinemas.features.push(place);
-    if (place.properties.Category.includes('Music')) musics.features.push(place);
+    if (place.properties.category.includes('Theater')) theaters.features.push(place);
+    if (place.properties.category.includes('Cinema')) cinemas.features.push(place);
+    if (place.properties.category.includes('Music')) musics.features.push(place);
 })
 
 // Define the layers properties
@@ -50,14 +50,14 @@ L.geoJson(theaters, {
     onEachFeature: function (feature, layer) {
         layer.on({
             click: function (insertData) {
-                    $(".modal-card-title").text(feature.properties.Name);
-                    $(".description").text(feature.properties.Category);
-                    $(".address").text(feature.properties.Address);
-                    $(".phone").text(feature.properties.Phone);
-                    $(".website").text(feature.properties.Website);
-                    $(".accesibilty-mail").text(feature.properties.Website);
-                    $(".accesibilty-phone").text(feature.properties.Website);
-                    $(".modal").toggleClass("is-active");
+                $(".modal-card-title").text(feature.properties.name);
+                $(".description").text(feature.properties.category);
+                $(".address").text(feature.properties.address);
+                $(".phone").text(feature.properties.phone);
+                $(".website").text(feature.properties.website);
+                $(".accesibilty-mail").text(feature.properties.website);
+                $(".accesibilty-phone").text(feature.properties.website);
+                $(".modal").toggleClass("is-active");
             }
         });
         theatersLayer.addLayer(layer);
@@ -80,14 +80,14 @@ L.geoJson(cinemas, {
     onEachFeature: function (feature, layer) {
         layer.on({
             click: function (insertData) {
-                    $(".modal-card-title").text(feature.properties.Name);
-                    $(".description").text(feature.properties.Category);
-                    $(".address").text(feature.properties.Address);
-                    $(".phone").text(feature.properties.Phone);
-                    $(".website").html(feature.properties.Website);
-                    $(".accesibilty-mail").text(feature.properties.Website);
-                    $(".accesibilty-phone").text(feature.properties.Website);
-                    $(".modal").toggleClass("is-active");
+                $(".modal-card-title").text(feature.properties.name);
+                $(".description").text(feature.properties.category);
+                $(".address").text(feature.properties.address);
+                $(".phone").text(feature.properties.phone);
+                $(".website").text(feature.properties.website);
+                $(".accesibilty-mail").text(feature.properties.website);
+                $(".accesibilty-phone").text(feature.properties.website);
+                $(".modal").toggleClass("is-active");
             }
         });
         cinemasLayer.addLayer(layer);
@@ -110,14 +110,14 @@ L.geoJson(musics, {
     onEachFeature: function (feature, layer) {
         layer.on({
             click: function (insertData) {
-                    $(".modal-card-title").text(feature.properties.Name);
-                    $(".description").text(feature.properties.Category);
-                    $(".address").text(feature.properties.Address);
-                    $(".phone").text(feature.properties.Phone);
-                    $(".website").text(feature.properties.Website);
-                    $(".accesibilty-mail").text(feature.properties.Website);
-                    $(".accesibilty-phone").text(feature.properties.Website);
-                    $(".modal").toggleClass("is-active");
+                $(".modal-card-title").text(feature.properties.name);
+                $(".description").text(feature.properties.category);
+                $(".address").text(feature.properties.address);
+                $(".phone").text(feature.properties.phone);
+                $(".website").text(feature.properties.website);
+                $(".accesibilty-mail").text(feature.properties.website);
+                $(".accesibilty-phone").text(feature.properties.website);
+                $(".modal").toggleClass("is-active");
             }
         });
         musicLayer.addLayer(layer);
