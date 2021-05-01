@@ -51,12 +51,13 @@ L.geoJson(theaters, {
         layer.on({
             click: function (insertData) {
                 $(".modal-card-title").text(feature.properties.name);
-                $(".description").text(feature.properties.category);
-                $(".address").text(feature.properties.address);
-                $(".phone").text(feature.properties.phone);
-                $(".website").text(feature.properties.website);
-                $(".accesibilty-mail").text(feature.properties.website);
-                $(".accesibilty-phone").text(feature.properties.website);
+                $(".category").text("קטגוריה: "+feature.properties.category);
+                $(".address").text("כתובת: "+feature.properties.address);
+                $(".phone").text("טלפון: "+feature.properties.phone);
+                document.getElementsByClassName(".website").href = feature.properties.website;
+                $(".accesibilty-mail").text("אימייל נציג נגישות: "+feature.properties.accessibility_officer_mail);
+                $(".accesibilty-phone").text("טלפון נציג נגישות: "+feature.properties.accessibility_officer_phone);
+                $(".info").text("מידע אודות הנגישות באתר: "+feature.properties.accessibility_description);
                 $(".modal").toggleClass("is-active");
             }
         });
@@ -81,12 +82,13 @@ L.geoJson(cinemas, {
         layer.on({
             click: function (insertData) {
                 $(".modal-card-title").text(feature.properties.name);
-                $(".description").text(feature.properties.category);
-                $(".address").text(feature.properties.address);
-                $(".phone").text(feature.properties.phone);
-                $(".website").text(feature.properties.website);
-                $(".accesibilty-mail").text(feature.properties.website);
-                $(".accesibilty-phone").text(feature.properties.website);
+                $(".category").text("קטגוריה: "+feature.properties.category);
+                $(".address").text("כתובת: "+feature.properties.address);
+                $(".phone").text("טלפון: "+feature.properties.phone);
+                document.getElementsByClassName(".website").href = feature.properties.website;
+                $(".accesibilty-mail").text("אימייל נציג נגישות: "+feature.properties.accessibility_officer_mail);
+                $(".accesibilty-phone").text("טלפון נציג נגישות: "+feature.properties.accessibility_officer_phone);
+                $(".info").text("מידע אודות הנגישות באתר: "+feature.properties.accessibility_description);
                 $(".modal").toggleClass("is-active");
             }
         });
@@ -111,12 +113,13 @@ L.geoJson(musics, {
         layer.on({
             click: function (insertData) {
                 $(".modal-card-title").text(feature.properties.name);
-                $(".description").text(feature.properties.category);
-                $(".address").text(feature.properties.address);
-                $(".phone").text(feature.properties.phone);
-                $(".website").text(feature.properties.website);
-                $(".accesibilty-mail").text(feature.properties.website);
-                $(".accesibilty-phone").text(feature.properties.website);
+                $(".category").text("קטגוריה: "+feature.properties.category);
+                $(".address").text("כתובת: "+feature.properties.address);
+                $(".phone").text("טלפון: "+feature.properties.phone);
+                document.getElementsByClassName(".website").href = feature.properties.website;
+                $(".accesibilty-mail").text("אימייל נציג נגישות: "+feature.properties.accessibility_officer_mail);
+                $(".accesibilty-phone").text("טלפון נציג נגישות: "+feature.properties.accessibility_officer_phone);
+                $(".info").text("מידע אודות הנגישות באתר: "+feature.properties.accessibility_description);
                 $(".modal").toggleClass("is-active");
             }
         });
