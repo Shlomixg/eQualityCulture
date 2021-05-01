@@ -39,16 +39,13 @@
       </div>
       <div id="navbarMenu" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item is-size-5 has-text-weight-semibold">
-            בית
-          </a>
-          <a class="navbar-item is-size-5 has-text-weight-semibold">
+          <a class="navbar-item is-size-5 sidebar-list-btn">
             רשימת מקומות
           </a>
-          <a class="navbar-item is-size-5 has-text-weight-semibold">
+          <a class="navbar-item is-size-5">
             אודות
           </a>
-          <a class="navbar-item is-size-5 has-text-weight-semibold">
+          <a class="navbar-item is-size-5">
             צרו קשר
           </a>
         </div>
@@ -58,11 +55,70 @@
   <!-- End Nav -->
 
   <!-- Main -->
-  <section class="hero is-link is-fullheight-with-navbar">
-    <div class="hero-body" id="mapid">
-      
+  <main class="columns">
+    <div class="sidebar-list column is-2">
+      <nav class="panel">
+        <p class="panel-heading">
+          מקומות
+        </p>
+        <div class="panel-block">
+          <p class="control has-icons-left">
+            <input class="input" type="text" placeholder="חיפוש">
+            <span class="icon is-left">
+              <i class="fas fa-search" aria-hidden="true"></i>
+            </span>
+          </p>
+        </div>
+        <p class="panel-tabs">
+          <a class="is-active">הכל</a>
+          <a>תיאטראות</a>
+          <a>אולמות קולנוע</a>
+          <a>אולמות מוזיקה</a>
+        </p>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          bulma
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          marksheet
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          minireset.css
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-book" aria-hidden="true"></i>
+          </span>
+          jgthms.github.io
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-code-branch" aria-hidden="true"></i>
+          </span>
+          daniellowtw/infboard
+        </a>
+        <a class="panel-block">
+          <span class="panel-icon">
+            <i class="fas fa-code-branch" aria-hidden="true"></i>
+          </span>
+          mojs
+        </a>
+      </nav>
     </div>
-  </section>
+    <section class="hero is-link is-fullheight-with-navbar column">
+      <div class="hero-body" id="mapid">
+        
+      </div>
+    </section>
+  </main>
 
   <div class="modal">
     <div class="modal-background"></div>

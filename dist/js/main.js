@@ -146,8 +146,9 @@ L.control.locate({
     icon: 'fas fa-map-marker-alt',
 }).addTo(map);
 
-// Control on navbar
+
 $(document).ready(function() {
+    /* Control on navbar */
     // Check for click events on the navbar burger icon
     $(".navbar-burger").click(function() {
 
@@ -156,8 +157,13 @@ $(document).ready(function() {
         $(".navbar-menu").toggleClass("is-active");
 
     });
+
 });
 
 $(".modal-close-button").click(function (){
     $(".modal").toggleClass("is-active");
-})
+});
+
+$(".sidebar-list-btn").click(function (){
+    $(".sidebar-list").animate({width: 'toggle'})
+});

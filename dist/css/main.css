@@ -1,5 +1,19 @@
 html {
     direction: rtl;
+    overflow-y: hidden;
+}
+
+.columns {
+    margin: 0 !important;
+}
+
+.column {
+    padding: 0 !important;
+}
+
+.sidebar-list {
+    display: none;
+    border-left: black 1px solid;
 }
 
 .modal {
