@@ -72,17 +72,26 @@
         <button class="delete modal-close-button" aria-label="close"></button>
       </header>
       <section class="modal-card-body">
+        <br>
+        <p class="category"></p>
+        <br>
         <p class="address"></p>
         <br>
         <p class="phone"></p>
-        <br>
-        <a class="website" href="url"></a>
         <br>
         <p class="accesibilty-mail"></p>
         <br>
         <p class="accesibilty-phone"></p>
         <br>
-        <p class="description"></p>
+        <p class="info"></p>
+        <br>
+        <button class="website" href="" onclick="func()">מעבר לאתר האינטרנט</button>
+        <script>
+          function func(){
+            window.location.href = document.getElementsByClassName(".website").href;
+          }
+        </script>
+        <br>
       </section>
       <!-- <footer class="modal-card-foot">
         <button class="button">Cancel</button>
