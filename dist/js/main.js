@@ -84,7 +84,7 @@ L.geoJson(cinemas, {
                     $(".description").text(feature.properties.Category);
                     $(".address").text(feature.properties.Address);
                     $(".phone").text(feature.properties.Phone);
-                    $(".website").text(feature.properties.Website);
+                    $(".website").html(feature.properties.Website);
                     $(".accesibilty-mail").text(feature.properties.Website);
                     $(".accesibilty-phone").text(feature.properties.Website);
                     $(".modal").toggleClass("is-active");
