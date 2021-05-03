@@ -272,6 +272,30 @@ $(".feature-row").click(function (){
     sidebarFeatureClick(parseInt($(this).children(":first").attr("id"), 10));
 });
 
+$(".about").click(function(){
+    $(".modal-card-title").text("מידע אודות האפליקציה");
+    $(".category").text("האפליקציה נועדה לעזור לבעלי מוגבלויות למצוא אתרים המספקים בילוי גם לאנשים עם צורכי הנגשה למיניהם.");
+    $(".address").text(" ניתן לסנן לפי איזור או קטגוריה מסויימת (בעזרת הכפתור בפינה הימנית העליונה על המפה) או לחפש את המקום המבוקש ישירות דרך הרשימה בראש הדף.");
+    $(".phone").text("עבור כל אתר הנמצא על המפה תוכלו לקבל מידע מתומצת לגבי אופן ההנגשה הקיים במקום.");
+    $(".accesibilty-mail").text("שימו לב, המידע עלול להשתנות בכל עת, יש ליצור קשר עם המקום בטלפון או לבקר באתר לצורך בירור.");
+    $(".accesibilty-phone").text("גלישה מהנה!");
+    $(".website").text("חזרה לדף הראשי");
+    document.getElementsByClassName(".website").href = "";
+    $(".modal").toggleClass("is-active");
+});
+
+$(".contact").click(function(){
+    $(".modal-card-title").text("צור קשר");
+    $(".category").text("ניתן לפנות אל בעלי האפליקציה למטרת עדכון בנוגע לטעות או פרטים שהשתנו:");
+    $(".address").text("קובי חדאד -  kobi3336@gmail.com");
+    $(".phone").text("shlomixg@gmail.com - שלומי חפיף");
+    $(".accesibilty-mail").text("תומר כרמל -  tomerca94@gmail.com");
+    $(".accesibilty-phone").text("במייל יש לציין את שם המקום עבורו נשלח המייל ואת מקור המידע עבור הטעות/עדכון.");
+    $(".website").text("שלח מייל");
+    document.getElementsByClassName(".website").href = "https://www.google.com/";
+    $(".modal").toggleClass("is-active");
+});
+
 function syncSidebarList() {
     activeLayers = control.getActiveOverlays();
     console.log(activeLayers);
