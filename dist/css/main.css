@@ -11,9 +11,22 @@ html {
     padding: 0 !important;
 }
 
+.modal {
+    z-index: 1000;
+}
+
+.phone {
+    direction: ltr;
+    text-align: right;
+}
+
+.hero.is-link {
+    color: #0C97D8 !important;
+    box-shadow: 1px 0 10px black;
+}
+
 .sidebar-list {
     display: none;
-    border-left: black 1px solid;
 }
 
 #features-panel {
@@ -26,17 +39,38 @@ html {
     flex: 1 1 auto;
     overflow-y: auto;
     height: 0;
+    padding: 3px;
 }
 
-.modal {
-    z-index: 1000;
+.feature-row {
+    display: flex;
+    padding: 0.7rem;
+    background: #fff;
+    transition: all .3s ease;
+    border-bottom: 1px black solid;
 }
 
-.phone {
-    direction: ltr;
-    text-align: right;
+.feature-row:hover {
+    cursor: pointer;
+    color: #E27 !important;
+    background: #f0f0f0;
 }
 
-.hero.is-link {
-    color: #0C97D8 !important;
+.marker_img, .feature-arrow{
+    align-self: center;
+}
+
+.marker_name {
+    font-size: 0.925em;
+    font-weight: 600;
+}
+
+.marker_address {
+    font-size: 0.85em;
+}
+
+.feature-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
 }

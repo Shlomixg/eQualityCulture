@@ -1,4 +1,4 @@
-let map, featuresArray = [];
+let map, featuresArray = [], activeLayers = [];
 
 // Creating tile layers
 let streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -49,14 +49,15 @@ let theaters = L.geoJson(null, {
                 $(".modal").toggleClass("is-active");
             }
         });
-        $("#feature-list").append(`<li class="feature-row" id="${L.stamp(layer)}" lat="${layer.getLatLng().lat}" lng="${layer.getLatLng().lng}">
-                                    <span><img src="img/theater-marker.png" width="30" height="30"></span>
-                                    <span class="item-name">${layer.feature.properties.name}</span>
-                                    <span class="item-address">${layer.feature.properties.address}</span>
-                                    <span class="icon">
-                                        <i class="fa fa-chevron-left"></i>
-                                    </span>
-                                    </li>`);
+        featuresArray.push({
+            marker_name: layer.feature.properties.name,
+            marker_address: layer.feature.properties.address,
+            marker_category: "theaters",
+            marker_img: "img/theater-marker.png",
+            marker_id: L.stamp(layer),
+            marker_lat: layer.feature.geometry.coordinates[1],
+            marker_lng: layer.feature.geometry.coordinates[0]
+        });
     }
 });
 
@@ -87,14 +88,15 @@ let cinemas = L.geoJson(null, {
                 $(".modal").toggleClass("is-active");
             }
         });
-        $("#feature-list").append(`<li class="feature-row" id="${L.stamp(layer)}" lat="${layer.getLatLng().lat}" lng="${layer.getLatLng().lng}">
-                                    <span><img src="img/cinema-marker.png" width="30" height="30"></span>
-                                    <span class="item-name">${layer.feature.properties.name}</span>
-                                    <span class="item-address">${layer.feature.properties.address}</span>
-                                    <span class="icon">
-                                        <i class="fa fa-chevron-left"></i>
-                                    </span>
-                                    </li>`);
+        featuresArray.push({
+            marker_name: layer.feature.properties.name,
+            marker_address: layer.feature.properties.address,
+            marker_category: "cinemas",
+            marker_img: "img/cinema-marker.png",
+            marker_id: L.stamp(layer),
+            marker_lat: layer.feature.geometry.coordinates[1],
+            marker_lng: layer.feature.geometry.coordinates[0]
+        });
     }
 });
 
@@ -125,14 +127,15 @@ let musics = L.geoJson(null, {
                 $(".modal").toggleClass("is-active");
             }
         });
-        $("#feature-list").append(`<li class="feature-row" id="${L.stamp(layer)}" lat="${layer.getLatLng().lat}" lng="${layer.getLatLng().lng}">
-                                    <span><img src="img/music-marker.png" width="30" height="30"></span>
-                                    <span class="item-name">${layer.feature.properties.name}</span>
-                                    <span class="item-address">${layer.feature.properties.address}</span>
-                                    <span class="icon">
-                                        <i class="fa fa-chevron-left"></i>
-                                    </span>
-                                    </li>`);
+        featuresArray.push({
+            marker_name: layer.feature.properties.name,
+            marker_address: layer.feature.properties.address,
+            marker_category: "musics",
+            marker_img: "img/music-marker.png",
+            marker_id: L.stamp(layer),
+            marker_lat: layer.feature.geometry.coordinates[1],
+            marker_lng: layer.feature.geometry.coordinates[0]
+        });
     }
 });
 
@@ -148,36 +151,59 @@ map = L.map('mapid', {
     center: [31.4, 34.75],
     zoom: 8,
     maxZoom: 18,
+    minZoom: 8,
     layers: [streets, markerClusters],
 });
+
+// Define List for listjs (for list & search)
+let options = {
+    valueNames: [ 
+        'marker_name',
+        'marker_address',
+        {attr: 'src', name: 'marker_img'},
+        {attr: 'id', name: 'marker_id'},
+        {attr: 'lat', name: 'marker_lat'},
+        {attr: 'lng', name: 'marker_lng'},
+        {attr: 'marker_category', name: 'marker_category'},
+    ],
+    item: '<li class="feature-row"><span class="marker_id marker_lat marker_lng marker_category"></span><img class="marker_img" width="30" height="30"><div class="feature-wrapper"><span class="marker_name"></span><span class="marker_address"></span></div><span class="icon feature-arrow"><i class="fa fa-chevron-left"></i></span></li>' 
+};
+
+let featuresList = new List('features-panel', options, featuresArray);
+featuresList.sort("item-name", {order:"asc"});
 
 /* Layer control listeners that allow for a single markerClusters layer */
 map.on("overlayadd", function(e) {
     if (e.layer === theatersLayer) {
         markerClusters.addLayers(theaters);
-        // TODO: Add syncSidebarList
+        syncSidebarList();
     }
     else if (e.layer === cinemasLayer) {
         markerClusters.addLayers(cinemas);
+        syncSidebarList();
     }
     else if (e.layer === musicsLayer) {
         markerClusters.addLayers(musics);
+        syncSidebarList();
     }
 });
   
 map.on("overlayremove", function(e) {
-    if (e.layer === theatersLayer) {
+    switch (e.layer) {
+    case theatersLayer:
         markerClusters.removeLayer(theaters);
-    }
-    else if (e.layer === cinemasLayer) {
+        syncSidebarList();
+        break;
+    case cinemasLayer:
         markerClusters.removeLayer(cinemas);
-    }
-    else if (e.layer === musicsLayer) {
+        syncSidebarList();
+        break;
+    case musicsLayer:
         markerClusters.removeLayer(musics);
+        syncSidebarList();
+        break;
     }
 });
-
-
 
 // These options will appear in the control box that users click to select tile layers
 let basemapControl = {
@@ -185,15 +211,33 @@ let basemapControl = {
     "Satellite": satellite
 }
 
-// an option to show or hide the layer you created from geojson
+// an option to show or hide the layer from geojson
 let layerControl = {
     "<img src='img/theater-marker.png' width='18' height='18'>&nbsp;תיאטראות": theatersLayer,
     "<img src='img/cinema-marker.png' width='18' height='18'>&nbsp;קולנוע": cinemasLayer,
     "<img src='img/music-marker.png' width='18' height='18'>&nbsp;מוזיקה": musicsLayer,
 }
 
+// Adding simple API to get array of active overlays (for filtering features list in the sidebar)
+L.Control.Layers.include({
+    getActiveOverlays: function () {
+        let active = []; // Create array for holding active layers
+        // Iterate all layers in control
+        this._layers.forEach(obj => {
+            // Check if it's an overlay and added to the map
+            if (obj.overlay && this._map.hasLayer(obj.layer)) {
+                // Push layer to active layers array
+                if (obj.name.includes('תיאטראות')) active.push('theaters');
+                if (obj.name.includes('קולנוע')) active.push('cinemas');
+                if (obj.name.includes('מוזיקה')) active.push('musics');
+            }
+        });
+        return active; // Return array
+    }
+});
+
 // Add the control component, a layer list with checkboxes for operational layers and radio buttons for basemaps
-L.control.layers(basemapControl, layerControl).addTo(map);
+let control = L.control.layers(basemapControl, layerControl).addTo(map);
 
 // Adding the empty layers to map to trigger the markerCluster
 map.addLayer(theatersLayer);
@@ -224,6 +268,10 @@ $(".sidebar-list-btn").click(function (){
     $(".sidebar-list").animate({width: 'toggle'})
 });
 
+$(".feature-row").click(function (){
+    sidebarFeatureClick(parseInt($(this).children(":first").attr("id"), 10));
+});
+
 $(".about").click(function(){
     $(".modal-card-title").text("מידע אודות האפליקציה");
     $(".category").text("האפליקציה נועדה לעזור לבעלי מוגבלויות למצוא אתרים המספקים בילוי גם לאנשים עם צורכי הנגשה למיניהם.");
@@ -248,6 +296,14 @@ $(".contact").click(function(){
     $(".modal").toggleClass("is-active");
 });
 
+function syncSidebarList() {
+    activeLayers = control.getActiveOverlays();
+    console.log(activeLayers);
+    featuresList.filter(feature => {
+        return (activeLayers.includes(feature._values.marker_category));
+    });
+}
+
 function sidebarFeatureClick(id) {
     let layer = markerClusters.getLayer(id);
     map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 16);
@@ -257,15 +313,3 @@ function sidebarFeatureClick(id) {
         $( ".sidebar-list-btn" ).trigger( "click" );
     }
 }
-
-$(".feature-row").click(function (){
-    sidebarFeatureClick(parseInt($(this).attr("id"), 10));
-});
-
-// Define List for listjs (for list & search)
-let options = {
-    valueNames: [ 'item-name', 'item-address' ],
-};
-
-let featuresList = new List('features-panel', options);
-featuresList.sort("item-name", {order:"asc"});
