@@ -3,8 +3,18 @@ html {
     overflow-y: hidden;
 }
 
+nav.navbar {
+    height: 3rem !important;
+     z-index: 1100;
+}
+
+nav.navbar .icon {
+    margin: 8px 3px 4px 6px;
+}
+
 .columns {
     margin: 0 !important;
+    display: flex;
 }
 
 .column {
@@ -39,7 +49,6 @@ html {
     flex: 1 1 auto;
     overflow-y: auto;
     height: 0;
-    padding: 3px;
 }
 
 .feature-row {

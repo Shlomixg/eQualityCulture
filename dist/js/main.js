@@ -251,25 +251,31 @@ L.control.locate({
 }).addTo(map);
 
 $(document).ready(function() {
-    /* Control on navbar */
-    // Check for click events on the navbar burger icon
-    $(".navbar-burger").click(function() {
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        $(".navbar-burger").toggleClass("is-active");
-        $(".navbar-menu").toggleClass("is-active");
-    });
+    
 });
 
-$(".modal-close-button").click(function (){
-    $(".modal").toggleClass("is-active");
+/* Control on navbar */
+// Check for click events on the navbar burger icon
+$(".navbar-burger").click(function() {
+    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+    $(".navbar-burger").toggleClass("is-active");
+    $(".navbar-menu").toggleClass("is-active");
 });
 
 $(".sidebar-list-btn").click(function (){
     $(".sidebar-list").animate({width: 'toggle'})
+    if ($(".navbar-burger").hasClass("is-active")) {
+        $(".navbar-burger").toggleClass("is-active");
+        $(".navbar-menu").toggleClass("is-active");
+    }
 });
 
 $(".feature-row").click(function (){
     sidebarFeatureClick(parseInt($(this).children(":first").attr("id"), 10));
+});
+
+$(".modal-close-button").click(function (){
+    $(".modal").toggleClass("is-active");
 });
 
 $(".about").click(function(){
