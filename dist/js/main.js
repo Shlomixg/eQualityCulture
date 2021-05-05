@@ -39,13 +39,17 @@ let theaters = L.geoJson(null, {
         layer.on({
             click: function () {
                 $(".modal-card-title").text(feature.properties.name);
-                $(".category").text(`קטגוריה: ${feature.properties.category}`);
-                $(".address").text(`כתובת: ${feature.properties.address}`);
-                $(".phone").text(`טלפון: ${feature.properties.phone}`);
-                document.getElementsByClassName(".website").href = feature.properties.website;
-                $(".accesibilty-mail").text("אימייל נציג נגישות: " + feature.properties.accessibility_officer_mail);
-                $(".accesibilty-phone").text("טלפון נציג נגישות: " + feature.properties.accessibility_officer_phone);
-                $(".info").text("מידע אודות הנגישות באתר: " + feature.properties.accessibility_description);
+                let popup_tbody = $(".popup-tbody");
+                popup_tbody.empty();
+                popup_tbody.append(`<tr><td>קטגוריה</td><td>תיאטראות</td></tr>`);
+                popup_tbody.append(`<tr><td>כתובת</td><td>${feature.properties.address}</td></tr>`);
+                popup_tbody.append(`<tr><td>טלפון</td><td><a href="tel:${feature.properties.phone}">${feature.properties.phone}</a></td></tr>`);
+                popup_tbody.append(`<tr><td>אתר</td><td><a class="website" href="${feature.properties.website}" target="_blank">${feature.properties.website}</a></td></tr>`);
+                if (feature.properties.accessibility_officer_mail) 
+                    popup_tbody.append(`<tr><td>מייל קצין נגישות</td><td><a href = "mailto:${feature.properties.accessibility_officer_mail}">${feature.properties.accessibility_officer_mail}</a></td></tr>`);
+                if (feature.properties.accessibility_officer_phone) 
+                    popup_tbody.append(`<tr><td>טלפון קצין נגישות</td><td>${feature.properties.accessibility_officer_phone}</td></tr>`);
+                popup_tbody.append(`<tr><td>פירוט נגישות במקום</td><td>${feature.properties.accessibility_description}</td></tr>`);
                 $(".modal").toggleClass("is-active");
             }
         });
@@ -116,6 +120,7 @@ let musics = L.geoJson(null, {
     onEachFeature: function (feature, layer) {
         layer.on({
             click: function () {
+                $(".")
                 $(".modal-card-title").text(feature.properties.name);
                 $(".category").text(`קטגוריה: ${feature.properties.category}`);
                 $(".address").text(`כתובת: ${feature.properties.address}`);
@@ -274,6 +279,10 @@ $(".feature-row").click(function (){
     sidebarFeatureClick(parseInt($(this).children(":first").attr("id"), 10));
 });
 
+$(".website-btn").click(() => {
+    window.open($(".website").attr("href"), '_blank');
+})
+
 $(".modal-close-button").click(function (){
     $(".modal").toggleClass("is-active");
 });
@@ -304,7 +313,6 @@ $(".contact").click(function(){
 
 function syncSidebarList() {
     activeLayers = control.getActiveOverlays();
-    console.log(activeLayers);
     featuresList.filter(feature => {
         return (activeLayers.includes(feature._values.marker_category));
     });

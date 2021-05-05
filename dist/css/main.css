@@ -22,12 +22,7 @@ nav.navbar .icon {
 }
 
 .modal {
-    z-index: 1000;
-}
-
-.phone {
-    direction: ltr;
-    text-align: right;
+    z-index: 1500;
 }
 
 .hero.is-link {
@@ -82,4 +77,8 @@ nav.navbar .icon {
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+}
+
+.modal-popup-footer {
+    justify-content: space-between;
 }
