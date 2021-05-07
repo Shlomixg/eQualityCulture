@@ -19,14 +19,61 @@ let markerClusters = new L.markerClusterGroup();
 /* Empty layer placeholder to add to layer control for listening when to add/remove theaters to markerClusters layer */
 let theatersLayer = L.geoJson(null),
     cinemasLayer = L.geoJson(null),
-    musicsLayer = L.geoJson(null);
+    musicsLayer = L.geoJson(null),
+    museumsLayer = L.geoJson(null),
+    natureLayer = L.geoJson(null);
+
+function onEachFeature(feature, layer) {
+    layer.on('click', e => {
+        let place = feature.properties, cat;
+        switch (place.category) {
+            case "Theater":
+                cat = 'תיאטראות';
+                break;
+            case "Cinema":
+                cat = 'קולנוע';
+                break;
+            case "Music":
+                cat = 'מוזיקה';
+                break;
+            case "Museum":
+                cat = 'מוזיאונים';
+                break;
+            case "Nature":
+                cat = 'טבע';
+                break;
+        }
+        $(".modal-card-title").text(place.name);
+        let popup_tbody = $(".popup-tbody");
+        popup_tbody.empty();
+        popup_tbody.append(`<tr><td>קטגוריה</td><td>${cat}</td></tr>`);
+        popup_tbody.append(`<tr><td>כתובת</td><td>${place.address}</td></tr>`);
+        popup_tbody.append(`<tr><td>טלפון</td><td><a href="tel:${place.phone}">${place.phone}</a></td></tr>`);
+        popup_tbody.append(`<tr><td>אתר</td><td><a class="website" href="${place.website}" target="_blank">${place.website}</a></td></tr>`);
+        if (place.accessibility_officer_mail) 
+            popup_tbody.append(`<tr><td>מייל קצין נגישות</td><td><a href = "mailto:${place.accessibility_officer_mail}">${place.accessibility_officer_mail}</a></td></tr>`);
+        if (place.accessibility_officer_phone) 
+            popup_tbody.append(`<tr><td>טלפון קצין נגישות</td><td>${place.accessibility_officer_phone}</td></tr>`);
+        popup_tbody.append(`<tr><td>פירוט נגישות במקום</td><td>${place.accessibility_description}</td></tr>`);
+        $("#modal-popup").toggleClass("is-active");
+    });
+    featuresArray.push({
+        marker_name: layer.feature.properties.name,
+        marker_address: layer.feature.properties.address,
+        marker_category: layer.feature.properties.category,
+        marker_img: `img/${layer.feature.properties.category}-marker.png`,
+        marker_id: L.stamp(layer),
+        marker_lat: layer.feature.geometry.coordinates[1],
+        marker_lng: layer.feature.geometry.coordinates[0]
+    });
+}
 
 // Define the layers properties
 let theaters = L.geoJson(null, {
     pointToLayer: function (feature, latlng) {
         return L.marker(latlng, {
           icon: L.icon({
-            iconUrl: "img/theater-marker.png",
+            iconUrl: `img/${feature.properties.category}-marker.png`,
             iconSize: [42, 42],
             iconAnchor: [20, 30],
             popupAnchor: [0, -26]
@@ -35,41 +82,14 @@ let theaters = L.geoJson(null, {
           riseOnHover: true
         });
     },
-    onEachFeature: function (feature, layer) {
-        layer.on({
-            click: function () {
-                $(".modal-card-title").text(feature.properties.name);
-                let popup_tbody = $(".popup-tbody");
-                popup_tbody.empty();
-                popup_tbody.append(`<tr><td>קטגוריה</td><td>תיאטראות</td></tr>`);
-                popup_tbody.append(`<tr><td>כתובת</td><td>${feature.properties.address}</td></tr>`);
-                popup_tbody.append(`<tr><td>טלפון</td><td><a href="tel:${feature.properties.phone}">${feature.properties.phone}</a></td></tr>`);
-                popup_tbody.append(`<tr><td>אתר</td><td><a class="website" href="${feature.properties.website}" target="_blank">${feature.properties.website}</a></td></tr>`);
-                if (feature.properties.accessibility_officer_mail) 
-                    popup_tbody.append(`<tr><td>מייל קצין נגישות</td><td><a href = "mailto:${feature.properties.accessibility_officer_mail}">${feature.properties.accessibility_officer_mail}</a></td></tr>`);
-                if (feature.properties.accessibility_officer_phone) 
-                    popup_tbody.append(`<tr><td>טלפון קצין נגישות</td><td>${feature.properties.accessibility_officer_phone}</td></tr>`);
-                popup_tbody.append(`<tr><td>פירוט נגישות במקום</td><td>${feature.properties.accessibility_description}</td></tr>`);
-                $(".modal").toggleClass("is-active");
-            }
-        });
-        featuresArray.push({
-            marker_name: layer.feature.properties.name,
-            marker_address: layer.feature.properties.address,
-            marker_category: "theaters",
-            marker_img: "img/theater-marker.png",
-            marker_id: L.stamp(layer),
-            marker_lat: layer.feature.geometry.coordinates[1],
-            marker_lng: layer.feature.geometry.coordinates[0]
-        });
-    }
+    onEachFeature: onEachFeature
 });
 
 let cinemas = L.geoJson(null, {
     pointToLayer: function (feature, latlng) {
         return L.marker(latlng, {
           icon: L.icon({
-            iconUrl: "img/cinema-marker.png",
+            iconUrl: `img/${feature.properties.category}-marker.png`,
             iconSize: [42, 42],
             iconAnchor: [20, 30],
             popupAnchor: [0, -26]
@@ -78,37 +98,14 @@ let cinemas = L.geoJson(null, {
           riseOnHover: true
         });
     },
-    onEachFeature: function (feature, layer) {
-        layer.on({
-            click: function () {
-                $(".modal-card-title").text(feature.properties.name);
-                $(".category").text(`קטגוריה: ${feature.properties.category}`);
-                $(".address").text(`כתובת: ${feature.properties.address}`);
-                $(".phone").text(`טלפון: ${feature.properties.phone}`);
-                document.getElementsByClassName(".website").href = feature.properties.website;
-                $(".accesibilty-mail").text("אימייל נציג נגישות: " + feature.properties.accessibility_officer_mail);
-                $(".accesibilty-phone").text("טלפון נציג נגישות: " + feature.properties.accessibility_officer_phone);
-                $(".info").text("מידע אודות הנגישות באתר: " + feature.properties.accessibility_description);
-                $(".modal").toggleClass("is-active");
-            }
-        });
-        featuresArray.push({
-            marker_name: layer.feature.properties.name,
-            marker_address: layer.feature.properties.address,
-            marker_category: "cinemas",
-            marker_img: "img/cinema-marker.png",
-            marker_id: L.stamp(layer),
-            marker_lat: layer.feature.geometry.coordinates[1],
-            marker_lng: layer.feature.geometry.coordinates[0]
-        });
-    }
+    onEachFeature: onEachFeature
 });
 
 let musics = L.geoJson(null, {
     pointToLayer: function (feature, latlng) {
         return L.marker(latlng, {
           icon: L.icon({
-            iconUrl: "img/music-marker.png",
+            iconUrl: `img/${feature.properties.category}-marker.png`,
             iconSize: [42, 42],
             iconAnchor: [20, 30],
             popupAnchor: [0, -26]
@@ -117,38 +114,48 @@ let musics = L.geoJson(null, {
           riseOnHover: true
         });
     },
-    onEachFeature: function (feature, layer) {
-        layer.on({
-            click: function () {
-                $(".")
-                $(".modal-card-title").text(feature.properties.name);
-                $(".category").text(`קטגוריה: ${feature.properties.category}`);
-                $(".address").text(`כתובת: ${feature.properties.address}`);
-                $(".phone").text(`טלפון: ${feature.properties.phone}`);
-                document.getElementsByClassName(".website").href = feature.properties.website;
-                $(".accesibilty-mail").text("אימייל נציג נגישות: " + feature.properties.accessibility_officer_mail);
-                $(".accesibilty-phone").text("טלפון נציג נגישות: " + feature.properties.accessibility_officer_phone);
-                $(".info").text("מידע אודות הנגישות באתר: " + feature.properties.accessibility_description);
-                $(".modal").toggleClass("is-active");
-            }
+    onEachFeature: onEachFeature
+});
+
+let museums = L.geoJson(null, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+          icon: L.icon({
+            iconUrl: `img/${feature.properties.category}-marker.png`,
+            iconSize: [42, 42],
+            iconAnchor: [20, 30],
+            popupAnchor: [0, -26]
+          }),
+          title: feature.properties.name,
+          riseOnHover: true
         });
-        featuresArray.push({
-            marker_name: layer.feature.properties.name,
-            marker_address: layer.feature.properties.address,
-            marker_category: "musics",
-            marker_img: "img/music-marker.png",
-            marker_id: L.stamp(layer),
-            marker_lat: layer.feature.geometry.coordinates[1],
-            marker_lng: layer.feature.geometry.coordinates[0]
+    },
+    onEachFeature: onEachFeature
+});
+
+let nature = L.geoJson(null, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+          icon: L.icon({
+            iconUrl: `img/${feature.properties.category}-marker.png`,
+            iconSize: [42, 42],
+            iconAnchor: [20, 30],
+            popupAnchor: [0, -26]
+          }),
+          title: feature.properties.name,
+          riseOnHover: true
         });
-    }
+    },
+    onEachFeature: onEachFeature
 });
 
 // Adding places to each layer according to it's category
 places.features.forEach(place => {
     if (place.properties.category.includes('Theater')) theaters.addData(place);
-    if (place.properties.category.includes('Cinema')) cinemas.addData(place);
-    if (place.properties.category.includes('Music')) musics.addData(place);
+    else if (place.properties.category.includes('Cinema')) cinemas.addData(place);
+    else if (place.properties.category.includes('Music')) musics.addData(place);
+    else if (place.properties.category.includes('Museum')) museums.addData(place);
+    else if (place.properties.category.includes('Nature')) nature.addData(place);
 })
 
 // Create a map
@@ -175,38 +182,55 @@ let options = {
 };
 
 let featuresList = new List('features-panel', options, featuresArray);
-featuresList.sort("item-name", {order:"asc"});
 
 /* Layer control listeners that allow for a single markerClusters layer */
 map.on("overlayadd", function(e) {
-    if (e.layer === theatersLayer) {
-        markerClusters.addLayers(theaters);
-        syncSidebarList();
-    }
-    else if (e.layer === cinemasLayer) {
-        markerClusters.addLayers(cinemas);
-        syncSidebarList();
-    }
-    else if (e.layer === musicsLayer) {
-        markerClusters.addLayers(musics);
-        syncSidebarList();
+    switch (e.layer) {
+        case theatersLayer:
+            markerClusters.addLayers(theaters);
+            syncSidebarList();
+            break;
+        case cinemasLayer:
+            markerClusters.addLayers(cinemas);
+            syncSidebarList();
+            break;
+        case musicsLayer:
+            markerClusters.addLayers(musics);
+            syncSidebarList();
+            break;
+        case museumsLayer:
+            markerClusters.addLayers(museums);
+            syncSidebarList();
+            break;
+        case natureLayer:
+            markerClusters.addLayers(nature);
+            syncSidebarList();
+            break;
     }
 });
   
 map.on("overlayremove", function(e) {
     switch (e.layer) {
-    case theatersLayer:
-        markerClusters.removeLayer(theaters);
-        syncSidebarList();
-        break;
-    case cinemasLayer:
-        markerClusters.removeLayer(cinemas);
-        syncSidebarList();
-        break;
-    case musicsLayer:
-        markerClusters.removeLayer(musics);
-        syncSidebarList();
-        break;
+        case theatersLayer:
+            markerClusters.removeLayer(theaters);
+            syncSidebarList();
+            break;
+        case cinemasLayer:
+            markerClusters.removeLayer(cinemas);
+            syncSidebarList();
+            break;
+        case musicsLayer:
+            markerClusters.removeLayer(musics);
+            syncSidebarList();
+            break;
+        case museumsLayer:
+            markerClusters.removeLayer(museums);
+            syncSidebarList();
+            break;
+        case natureLayer:
+            markerClusters.removeLayer(nature);
+            syncSidebarList();
+            break;
     }
 });
 
@@ -218,9 +242,11 @@ let basemapControl = {
 
 // an option to show or hide the layer from geojson
 let layerControl = {
-    "<img src='img/theater-marker.png' width='18' height='18'>&nbsp;תיאטראות": theatersLayer,
-    "<img src='img/cinema-marker.png' width='18' height='18'>&nbsp;קולנוע": cinemasLayer,
-    "<img src='img/music-marker.png' width='18' height='18'>&nbsp;מוזיקה": musicsLayer,
+    "<img src='img/Theater-marker.png' width='18' height='18'>&nbsp;תיאטראות": theatersLayer,
+    "<img src='img/Cinema-marker.png' width='18' height='18'>&nbsp;קולנוע": cinemasLayer,
+    "<img src='img/Music-marker.png' width='18' height='18'>&nbsp;מוזיקה": musicsLayer,
+    "<img src='img/Museum-marker.png' width='18' height='18'>&nbsp;מוזיאונים": museumsLayer,
+    "<img src='img/Nature-marker.png' width='18' height='18'>&nbsp;טבע": natureLayer,
 }
 
 // Adding simple API to get array of active overlays (for filtering features list in the sidebar)
@@ -232,9 +258,11 @@ L.Control.Layers.include({
             // Check if it's an overlay and added to the map
             if (obj.overlay && this._map.hasLayer(obj.layer)) {
                 // Push layer to active layers array
-                if (obj.name.includes('תיאטראות')) active.push('theaters');
-                if (obj.name.includes('קולנוע')) active.push('cinemas');
-                if (obj.name.includes('מוזיקה')) active.push('musics');
+                if (obj.name.includes('תיאטראות')) active.push('Theater');
+                else if (obj.name.includes('קולנוע')) active.push('Cinema');
+                else if (obj.name.includes('מוזיקה')) active.push('Music');
+                else if (obj.name.includes('מוזיאונים')) active.push('Museum');
+                else if (obj.name.includes('טבע')) active.push('Nature');
             }
         });
         return active; // Return array
@@ -248,6 +276,8 @@ let control = L.control.layers(basemapControl, layerControl).addTo(map);
 map.addLayer(theatersLayer);
 map.addLayer(cinemasLayer);
 map.addLayer(musicsLayer);
+map.addLayer(museumsLayer);
+map.addLayer(natureLayer);
 
 // Add control to locate user location (Plugin)
 L.control.locate({
@@ -255,19 +285,15 @@ L.control.locate({
     icon: 'fas fa-map-marker-alt',
 }).addTo(map);
 
-$(document).ready(function() {
-    
-});
-
 /* Control on navbar */
 // Check for click events on the navbar burger icon
-$(".navbar-burger").click(function() {
+$(".navbar-burger").click(() => {
     // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
     $(".navbar-burger").toggleClass("is-active");
     $(".navbar-menu").toggleClass("is-active");
 });
 
-$(".sidebar-list-btn").click(function (){
+$(".sidebar-list-btn").click(() => {
     $(".sidebar-list").animate({width: 'toggle'})
     if ($(".navbar-burger").hasClass("is-active")) {
         $(".navbar-burger").toggleClass("is-active");
@@ -275,7 +301,7 @@ $(".sidebar-list-btn").click(function (){
     }
 });
 
-$(".feature-row").click(function (){
+$(".feature-row").click(() => {
     sidebarFeatureClick(parseInt($(this).children(":first").attr("id"), 10));
 });
 
@@ -283,32 +309,16 @@ $(".website-btn").click(() => {
     window.open($(".website").attr("href"), '_blank');
 })
 
-$(".modal-close-button").click(function (){
-    $(".modal").toggleClass("is-active");
+$(".modal-close-button").click(() => {
+    $(".modal").removeClass("is-active");
 });
 
-$(".about").click(function(){
-    $(".modal-card-title").text("מידע אודות האפליקציה");
-    $(".category").text("האפליקציה נועדה לעזור לבעלי מוגבלויות למצוא אתרים המספקים בילוי גם לאנשים עם צורכי הנגשה למיניהם.");
-    $(".address").text(" ניתן לסנן לפי איזור או קטגוריה מסויימת (בעזרת הכפתור בפינה הימנית העליונה על המפה) או לחפש את המקום המבוקש ישירות דרך הרשימה בראש הדף.");
-    $(".phone").text("עבור כל אתר הנמצא על המפה תוכלו לקבל מידע מתומצת לגבי אופן ההנגשה הקיים במקום.");
-    $(".accesibilty-mail").text("שימו לב, המידע עלול להשתנות בכל עת, יש ליצור קשר עם המקום בטלפון או לבקר באתר לצורך בירור.");
-    $(".accesibilty-phone").text("גלישה מהנה!");
-    $(".website").text("חזרה לדף הראשי");
-    document.getElementsByClassName(".website").href = "";
-    $(".modal").toggleClass("is-active");
+$(".about").click(() => {
+    $("#modal-about").toggleClass("is-active");
 });
 
-$(".contact").click(function(){
-    $(".modal-card-title").text("צור קשר");
-    $(".category").text("ניתן לפנות אל בעלי האפליקציה למטרת עדכון בנוגע לטעות או פרטים שהשתנו:");
-    $(".address").text("קובי חדאד -  kobi3336@gmail.com");
-    $(".phone").text("shlomixg@gmail.com - שלומי חפיף");
-    $(".accesibilty-mail").text("תומר כרמל -  tomerca94@gmail.com");
-    $(".accesibilty-phone").text("במייל יש לציין את שם המקום עבורו נשלח המייל ואת מקור המידע עבור הטעות/עדכון.");
-    $(".website").text("שלח מייל");
-    document.getElementsByClassName(".website").href = "https://www.google.com/";
-    $(".modal").toggleClass("is-active");
+$(".contact").click(() => {
+    $("#modal-contact").toggleClass("is-active");
 });
 
 function syncSidebarList() {
@@ -324,6 +334,6 @@ function sidebarFeatureClick(id) {
     layer.fire("click");
     /* Hide sidebar and go to the map on small screens */
     if (document.body.clientWidth <= 767) {
-        $( ".sidebar-list-btn" ).trigger( "click" );
+        $(".sidebar-list-btn" ).trigger( "click" );
     }
 }

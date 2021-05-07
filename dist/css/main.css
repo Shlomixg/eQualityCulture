@@ -82,3 +82,7 @@ nav.navbar .icon {
 .modal-popup-footer {
     justify-content: space-between;
 }
+
+.modal-about-footer {
+    justify-content: end;
+}

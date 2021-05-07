@@ -96,7 +96,7 @@
   </main>
 
   <!-- Feature Popup Modal -->
-  <div id="modal-id" class="modal modal-fx-3dFlipHorizontal">
+  <div id="modal-popup" class="modal modal-fx-3dFlipHorizontal pop">
     <div class="modal-background"></div>
     <div class="modal-card">
       <header class="modal-card-head">
@@ -115,6 +115,97 @@
       </footer>
     </div>
   </div>
+
+    <!-- About Modal -->
+    <div id="modal-about" class="modal modal-fx-3dFlipHorizontal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">אודות eQualityCulture - תרבות שווה</p>
+          <button class="delete modal-close-button" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <p>
+            האפליקציה נועדה לעזור לבעלי מוגבלויות למצוא אתרים המספקים בילוי גם לאנשים עם צורכי הנגשה למיניהם.
+          </p>
+            ניתן לסנן לפי איזור או קטגוריה מסויימת (בעזרת הכפתור בפינה הימנית העליונה על המפה) או לחפש את המקום המבוקש ישירות דרך הרשימה בראש הדף.
+          <p>
+           עבור כל אתר הנמצא על המפה תוכלו לקבל מידע מתומצת לגבי אופן ההנגשה הקיים במקום.
+          </p>
+          <p>
+            שימו לב, המידע עלול להשתנות בכל עת, יש ליצור קשר עם המקום בטלפון או לבקר באתר לצורך בירור.
+          </p>
+        </section>
+        <footer class="modal-card-foot modal-about-footer">
+          <button class="button is-outlined is-danger is-pulled-left modal-close-button">סגור</button>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="modal-contact" class="modal modal-fx-3dFlipHorizontal">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">יצירת קשר</p>
+          <button class="delete modal-close-button" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <p>
+            ניתן לפנות אל בעלי האפליקציה למטרת עדכון בנוגע לטעות או פרטים שהשתנו:
+          </p>
+          <table class="table is-bordered is-striped is-fullwidth is-hoverable" >
+            <tbody>
+              <tr>
+                <td>קובי חדאד</td>
+                <td><a href = "mailto:kobi3336@gmail.com">kobi3336@gmail.com</a></td>
+                <td>
+                  <button class="button is-outlined is-link" onclick="window.open('https://github.com/Kobi-Hadad');">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Kobi-Hadad</span>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>שלומי חפיף</td>
+                <td><a href = "mailto:shlomixg@gmail.com">shlomixg@gmail.com</a></td>
+                <td>
+                  <button class="button is-outlined is-link" onclick="window.open('https://github.com/Shlomixg');">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Shlomixg</span>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td>תומר כרמל</td>
+                <td><a href = "mailto:tomerca94@gmail.com">tomerca94@gmail.com</a></td>
+                <td>
+                  <button class="button is-outlined is-link" onclick="window.open('https://github.com/tomerc-star');">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>tomerc-star</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <footer class="modal-card-foot modal-popup-footer">
+          <button class="button is-outlined is-link" onclick="window.open('https://github.com/Shlomixg/eQualityCulture');">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+            <span>GitHub</span>
+          </button>
+          <button class="button is-outlined is-danger modal-close-button">סגור</button>
+        </footer>
+      </div>
+    </div>
 
   <!-- lib scripts -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
