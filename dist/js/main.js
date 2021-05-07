@@ -43,7 +43,7 @@ function onEachFeature(feature, layer) {
                 cat = 'טבע';
                 break;
         }
-        $(".modal-card-title").text(place.name);
+        $(".modal-popup-title").text(place.name);
         let popup_tbody = $(".popup-tbody");
         popup_tbody.empty();
         popup_tbody.append(`<tr><td>קטגוריה</td><td>${cat}</td></tr>`);
@@ -301,7 +301,7 @@ $(".sidebar-list-btn").click(() => {
     }
 });
 
-$(".feature-row").click(() => {
+$(".feature-row").click(function () {
     sidebarFeatureClick(parseInt($(this).children(":first").attr("id"), 10));
 });
 
