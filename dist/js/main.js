@@ -14,7 +14,18 @@ let satellite = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/
 });
 
 /* Single marker cluster layer to hold all clusters */
-let markerClusters = new L.markerClusterGroup();
+let markerClusters = new L.markerClusterGroup({
+    disableClusteringAtZoom: 13
+});
+
+/* Highligh layer */
+let highlight = L.geoJson(null);
+let highlightStyle = {
+  stroke: false,
+  fillColor: "#3ec1d3",
+  fillOpacity: 0.7,
+  radius: 10
+};
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove theaters to markerClusters layer */
 let theatersLayer = L.geoJson(null),
@@ -43,6 +54,8 @@ function onEachFeature(feature, layer) {
                 cat = 'טבע';
                 break;
         }
+        highlight.clearLayers();
+        highlight.addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
         $(".modal-popup-title").text(place.name);
         let popup_tbody = $(".popup-tbody");
         popup_tbody.empty();
@@ -53,18 +66,18 @@ function onEachFeature(feature, layer) {
         if (place.accessibility_officer_mail) 
             popup_tbody.append(`<tr><td>מייל קצין נגישות</td><td><a href = "mailto:${place.accessibility_officer_mail}">${place.accessibility_officer_mail}</a></td></tr>`);
         if (place.accessibility_officer_phone) 
-            popup_tbody.append(`<tr><td>טלפון קצין נגישות</td><td>${place.accessibility_officer_phone}</td></tr>`);
+            popup_tbody.append(`<tr><td>טלפון קצין נגישות</td><td><a href="tel:${place.accessibility_officer_phone}">${place.accessibility_officer_phone}</a></td></tr>`);
         popup_tbody.append(`<tr><td>פירוט נגישות במקום</td><td>${place.accessibility_description}</td></tr>`);
         $("#modal-popup").toggleClass("is-active");
     });
     featuresArray.push({
-        marker_name: layer.feature.properties.name,
-        marker_address: layer.feature.properties.address,
-        marker_category: layer.feature.properties.category,
-        marker_img: `img/${layer.feature.properties.category}-marker.png`,
+        marker_name: feature.properties.name,
+        marker_address: feature.properties.address,
+        marker_category: feature.properties.category,
+        marker_img: `img/${feature.properties.category}-marker.png`,
         marker_id: L.stamp(layer),
-        marker_lat: layer.feature.geometry.coordinates[1],
-        marker_lng: layer.feature.geometry.coordinates[0]
+        marker_lat: feature.geometry.coordinates[1],
+        marker_lng: feature.geometry.coordinates[0]
     });
 }
 
@@ -72,14 +85,14 @@ function onEachFeature(feature, layer) {
 let theaters = L.geoJson(null, {
     pointToLayer: function (feature, latlng) {
         return L.marker(latlng, {
-          icon: L.icon({
-            iconUrl: `img/${feature.properties.category}-marker.png`,
-            iconSize: [42, 42],
-            iconAnchor: [20, 30],
-            popupAnchor: [0, -26]
-          }),
-          title: feature.properties.name,
-          riseOnHover: true
+            icon: L.icon({
+                iconUrl: `img/${feature.properties.category}-marker.png`,
+                iconSize: [42, 42],
+                iconAnchor: [21, 34],
+                popupAnchor: [0, -26]
+            }),
+            title: feature.properties.name,
+            riseOnHover: true
         });
     },
     onEachFeature: onEachFeature
@@ -88,14 +101,14 @@ let theaters = L.geoJson(null, {
 let cinemas = L.geoJson(null, {
     pointToLayer: function (feature, latlng) {
         return L.marker(latlng, {
-          icon: L.icon({
-            iconUrl: `img/${feature.properties.category}-marker.png`,
-            iconSize: [42, 42],
-            iconAnchor: [20, 30],
-            popupAnchor: [0, -26]
-          }),
-          title: feature.properties.name,
-          riseOnHover: true
+            icon: L.icon({
+                iconUrl: `img/${feature.properties.category}-marker.png`,
+                iconSize: [42, 42],
+                iconAnchor: [21, 34],
+                popupAnchor: [0, -26]
+            }),
+            title: feature.properties.name,
+            riseOnHover: true
         });
     },
     onEachFeature: onEachFeature
@@ -104,14 +117,14 @@ let cinemas = L.geoJson(null, {
 let musics = L.geoJson(null, {
     pointToLayer: function (feature, latlng) {
         return L.marker(latlng, {
-          icon: L.icon({
-            iconUrl: `img/${feature.properties.category}-marker.png`,
-            iconSize: [42, 42],
-            iconAnchor: [20, 30],
-            popupAnchor: [0, -26]
-          }),
-          title: feature.properties.name,
-          riseOnHover: true
+            icon: L.icon({
+                iconUrl: `img/${feature.properties.category}-marker.png`,
+                iconSize: [42, 42],
+                iconAnchor: [21, 34],
+                popupAnchor: [0, -26]
+            }),
+            title: feature.properties.name,
+            riseOnHover: true
         });
     },
     onEachFeature: onEachFeature
@@ -120,14 +133,14 @@ let musics = L.geoJson(null, {
 let museums = L.geoJson(null, {
     pointToLayer: function (feature, latlng) {
         return L.marker(latlng, {
-          icon: L.icon({
-            iconUrl: `img/${feature.properties.category}-marker.png`,
-            iconSize: [42, 42],
-            iconAnchor: [20, 30],
-            popupAnchor: [0, -26]
-          }),
-          title: feature.properties.name,
-          riseOnHover: true
+            icon: L.icon({
+                iconUrl: `img/${feature.properties.category}-marker.png`,
+                iconSize: [42, 42],
+                iconAnchor: [21, 34],
+                popupAnchor: [0, -26]
+            }),
+            title: feature.properties.name,
+            riseOnHover: true
         });
     },
     onEachFeature: onEachFeature
@@ -136,14 +149,14 @@ let museums = L.geoJson(null, {
 let nature = L.geoJson(null, {
     pointToLayer: function (feature, latlng) {
         return L.marker(latlng, {
-          icon: L.icon({
-            iconUrl: `img/${feature.properties.category}-marker.png`,
-            iconSize: [42, 42],
-            iconAnchor: [20, 30],
-            popupAnchor: [0, -26]
-          }),
-          title: feature.properties.name,
-          riseOnHover: true
+            icon: L.icon({
+                iconUrl: `img/${feature.properties.category}-marker.png`,
+                iconSize: [42, 42],
+                iconAnchor: [21, 34],
+                popupAnchor: [0, -26]
+            }),
+            title: feature.properties.name,
+            riseOnHover: true
         });
     },
     onEachFeature: onEachFeature
@@ -164,7 +177,7 @@ map = L.map('mapid', {
     zoom: 8,
     maxZoom: 18,
     minZoom: 8,
-    layers: [streets, markerClusters],
+    layers: [streets, markerClusters, highlight],
 });
 
 // Define List for listjs (for list & search)
@@ -232,6 +245,11 @@ map.on("overlayremove", function(e) {
             syncSidebarList();
             break;
     }
+});
+
+/* Clear feature highlight when map is clicked */
+map.on("click", function(e) {
+    highlight.clearLayers();
 });
 
 // These options will appear in the control box that users click to select tile layers
@@ -307,7 +325,7 @@ $(".feature-row").click(function () {
 
 $(".website-btn").click(() => {
     window.open($(".website").attr("href"), '_blank');
-})
+});
 
 $(".modal-close-button").click(() => {
     $(".modal").removeClass("is-active");
@@ -330,7 +348,10 @@ function syncSidebarList() {
 
 function sidebarFeatureClick(id) {
     let layer = markerClusters.getLayer(id);
-    map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 16);
+    map.flyTo([layer.getLatLng().lat, layer.getLatLng().lng], 14, {
+        animate: true,
+        duration: 1
+    });
     layer.fire("click");
     /* Hide sidebar and go to the map on small screens */
     if (document.body.clientWidth <= 767) {
