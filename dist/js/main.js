@@ -36,7 +36,7 @@ let theatersLayer = L.geoJson(null),
 
 function onEachFeature(feature, layer) {
     layer.on('click', e => {
-        let place = feature.properties, cat;
+        let place = feature.properties, cat, accessibility;
         switch (place.category) {
             case "Theater":
                 cat = 'תיאטראות';
@@ -54,8 +54,10 @@ function onEachFeature(feature, layer) {
                 cat = 'טבע';
                 break;
         }
+
         highlight.clearLayers();
         highlight.addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], highlightStyle));
+
         $(".modal-popup-title").text(place.name);
         let popup_tbody = $(".popup-tbody");
         popup_tbody.empty();
@@ -63,10 +65,27 @@ function onEachFeature(feature, layer) {
         popup_tbody.append(`<tr><td>כתובת</td><td>${place.address}</td></tr>`);
         popup_tbody.append(`<tr><td>טלפון</td><td><a href="tel:${place.phone}">${place.phone}</a></td></tr>`);
         popup_tbody.append(`<tr><td>אתר</td><td><a class="website" href="${place.website}" target="_blank">${place.website}</a></td></tr>`);
-        if (place.accessibility_officer_mail) 
+
+        if (place.accessibility_officer_mail)
             popup_tbody.append(`<tr><td>מייל קצין נגישות</td><td><a href = "mailto:${place.accessibility_officer_mail}">${place.accessibility_officer_mail}</a></td></tr>`);
-        if (place.accessibility_officer_phone) 
+        if (place.accessibility_officer_phone)
             popup_tbody.append(`<tr><td>טלפון קצין נגישות</td><td><a href="tel:${place.accessibility_officer_phone}">${place.accessibility_officer_phone}</a></td></tr>`);
+
+        if (place.sight == 'X') accessibility = 'אין נגישות';
+        else if (place.sight == 'P') accessibility = 'נגישות חלקית';
+        else accessibility = 'נגישות מלאה';
+        popup_tbody.append(`<tr><td>נגישות לכבדי ראייה ועיוורים</td><td>${accessibility}</td></tr>`);
+
+        if (place.hearing == 'X') accessibility = 'אין נגישות';
+        else if (place.hearing == 'P') accessibility = 'נגישות חלקית';
+        else accessibility = 'נגישות מלאה';
+        popup_tbody.append(`<tr><td>נגישות לכבדי שמיעה וחירשים</td><td>${accessibility}</td></tr>`);
+
+        if (place.mobillity == 'X') accessibility = 'אין נגישות';
+        else if (place.mobillity == 'P') accessibility = 'נגישות חלקית';
+        else accessibility = 'נגישות מלאה';
+        popup_tbody.append(`<tr><td>נגישות למוגבלי ניידות</td><td>${accessibility}</td></tr>`);
+
         popup_tbody.append(`<tr><td>פירוט נגישות במקום</td><td>${place.accessibility_description}</td></tr>`);
         $("#modal-popup").toggleClass("is-active");
     });
